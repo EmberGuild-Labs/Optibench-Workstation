@@ -35,7 +35,7 @@ npm run dist:win
 This runs `electron-vite build` (→ `out/`) and then `electron-builder --win`.
 
 Output: `release/<version>/Optibench-Workstation-Setup-<version>.exe`
-(e.g. `release/0.1.0-alpha/Optibench-Workstation-Setup-0.1.0-alpha.exe`). The unpacked app is in
+(e.g. `release/0.1.0-beta/Optibench-Workstation-Setup-0.1.0-beta.exe`). The unpacked app is in
 `release/<version>/win-unpacked/` — handy for a quick smoke test without installing.
 
 Installer behaviour:
@@ -95,4 +95,4 @@ If `build/icon.icns` is missing electron-builder converts `build/icon.png` inste
 - *Installer art looks wrong* — NSIS requires 24-bit uncompressed BMP at exactly 164×314
   (sidebar) and 150×57 (header); the script's encoder produces exactly that.
 - *Version shows oddly in Windows properties* — NSIS needs a numeric version; electron-builder
-  maps `0.1.0-alpha` to `0.1.0.0` for the file version.
+  maps `0.1.0-beta` to `0.1.0.0` for the file version.

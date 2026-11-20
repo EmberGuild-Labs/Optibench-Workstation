@@ -17,7 +17,7 @@
  */
 
 export const APP_NAME = 'Optibench Workstation';
-export const APP_VERSION = '0.1.0-alpha';
+export const APP_VERSION = '0.1.0-beta';
 export const FILE_EXTENSION = 'obw'; // Optibench Workstation project
 export const FILE_MAGIC = 'optibench-workstation';
 export const FORMAT_VERSION = 1;

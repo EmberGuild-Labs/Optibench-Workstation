@@ -37,7 +37,7 @@ function About({ onClose }: { onClose(): void }): React.JSX.Element {
               </tbody>
             </table>
           </fieldset>
-          <p className="dim">Alpha software. © Optibench.</p>
+          <p className="dim">Beta software. © Optibench.</p>
         </div>
       </div>
     </ModalDialog>

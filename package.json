@@ -1,6 +1,6 @@
 {
   "name": "optibench-workstation",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0-beta",
   "description": "Optical bench and circuit co-simulation workstation",
   "main": "out/main/index.js",
   "scripts": {
