@@ -1,0 +1,665 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "A circuit steers a laser beam. CIRCUIT: the function generator (0.5 Hz triangle, 0 to 5 V) is the control voltage of servo SV1 (DC-control mode, 180 degrees for 5 V, powered from the 6 V battery). An ACTUATOR link with target \"rotation\" turns the scan mirror on the optical bench: mirror angle = 30 deg + servo angle / 6, i.e. 30 to 60 degrees, so the reflected green beam sweeps +/-30 degrees across the wall screen once per second in each direction. OPTICS: in the middle of the sweep (mirror at 45 degrees) the beam crosses a small target photodiode. A DETECTOR link feeds its power to PD1; the photocurrent raises the voltage on R2 above the 1 V reference (R3/R4), the LM393 comparator U1 pulls its open-collector output low, the HIT LED flashes and the decade counter HITS counts each pass when the beam leaves the target. Try the sine waveform, a faster sweep (the servo speed limit of 600 deg/s then rounds the scan) or move the target.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Laser Show: Servo Scan Mirror"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "Green laser",
+        "position": {
+          "x": -150,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1.5,
+          "divergence": 0.3,
+          "power": 0.005,
+          "rays": 5,
+          "wavelength": 532
+        }
+      },
+      {
+        "id": "galvo",
+        "type": "mirror.flat",
+        "name": "Scan mirror (on servo SV1)",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.785398,
+        "props": {
+          "coating": "silver",
+          "size": 25
+        }
+      },
+      {
+        "id": "target",
+        "type": "detector.photodiode",
+        "name": "Target (linked to PD1)",
+        "position": {
+          "x": 0,
+          "y": -150
+        },
+        "rotation": -1.570796,
+        "props": {
+          "size": 12
+        }
+      },
+      {
+        "id": "wall",
+        "type": "detector.screen",
+        "name": "Wall",
+        "position": {
+          "x": 0,
+          "y": -220
+        },
+        "rotation": -1.570796,
+        "props": {
+          "bins": 64,
+          "size": 300
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [
+      {
+        "id": "bt",
+        "type": "source.battery",
+        "name": "BT1",
+        "position": {
+          "x": 2,
+          "y": 8
+        },
+        "rotation": 1,
+        "props": {
+          "internalResistance": 0.2,
+          "voltage": 6
+        }
+      },
+      {
+        "id": "g1",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 2,
+          "y": 12
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "fg",
+        "type": "source.function_gen",
+        "name": "FG1",
+        "position": {
+          "x": 10,
+          "y": 8
+        },
+        "rotation": 1,
+        "props": {
+          "amplitude": 2.5,
+          "frequency": 0.5,
+          "offset": 2.5,
+          "outputResistance": 50,
+          "waveform": "triangle"
+        }
+      },
+      {
+        "id": "g2",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 10,
+          "y": 12
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "sv",
+        "type": "misc.servo",
+        "name": "SV1",
+        "position": {
+          "x": 18,
+          "y": 6
+        },
+        "rotation": 0,
+        "props": {
+          "initialAngle": 0,
+          "mode": "dc",
+          "speed": 600
+        }
+      },
+      {
+        "id": "pc",
+        "type": "meter.probe",
+        "name": "CTRL",
+        "position": {
+          "x": 13,
+          "y": 9
+        },
+        "rotation": 0,
+        "props": {
+          "color": "#ffd21a",
+          "window": 4
+        }
+      },
+      {
+        "id": "g3",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 18,
+          "y": 12
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "pd",
+        "type": "opto.photodiode",
+        "name": "PD1",
+        "position": {
+          "x": 26,
+          "y": 8
+        },
+        "rotation": 3,
+        "props": {
+          "responsivity": 0.5
+        }
+      },
+      {
+        "id": "r2",
+        "type": "passive.resistor",
+        "name": "R2",
+        "position": {
+          "x": 26,
+          "y": 15
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 2200
+        }
+      },
+      {
+        "id": "g4",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 26,
+          "y": 19
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "r3",
+        "type": "passive.resistor",
+        "name": "R3",
+        "position": {
+          "x": 22,
+          "y": 6
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 33000
+        }
+      },
+      {
+        "id": "r4",
+        "type": "passive.resistor",
+        "name": "R4",
+        "position": {
+          "x": 22,
+          "y": 14
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 6800
+        }
+      },
+      {
+        "id": "g5",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 22,
+          "y": 18
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "u1",
+        "type": "ic.comparator",
+        "name": "U1",
+        "position": {
+          "x": 34,
+          "y": 11
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "g6",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 34,
+          "y": 15
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "r5",
+        "type": "passive.resistor",
+        "name": "R5",
+        "position": {
+          "x": 40,
+          "y": 5
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 470
+        }
+      },
+      {
+        "id": "led",
+        "type": "semi.led",
+        "name": "HIT",
+        "position": {
+          "x": 40,
+          "y": 9
+        },
+        "rotation": 1,
+        "props": {
+          "color": "green"
+        }
+      },
+      {
+        "id": "cnt",
+        "type": "digital.counter",
+        "name": "HITS",
+        "position": {
+          "x": 47,
+          "y": 12
+        },
+        "rotation": 0,
+        "props": {
+          "modulus": 10
+        }
+      },
+      {
+        "id": "g7",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 43,
+          "y": 16
+        },
+        "rotation": 0,
+        "props": {}
+      }
+    ],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00002
+    },
+    "wires": [
+      {
+        "id": "w1",
+        "points": [
+          {
+            "x": 2,
+            "y": 10
+          },
+          {
+            "x": 2,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w2",
+        "points": [
+          {
+            "x": 10,
+            "y": 10
+          },
+          {
+            "x": 10,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w3",
+        "points": [
+          {
+            "x": 10,
+            "y": 6
+          },
+          {
+            "x": 13,
+            "y": 6
+          },
+          {
+            "x": 16,
+            "y": 6
+          }
+        ]
+      },
+      {
+        "id": "w4",
+        "points": [
+          {
+            "x": 13,
+            "y": 6
+          },
+          {
+            "x": 13,
+            "y": 9
+          }
+        ]
+      },
+      {
+        "id": "w5",
+        "points": [
+          {
+            "x": 18,
+            "y": 8
+          },
+          {
+            "x": 18,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w6",
+        "points": [
+          {
+            "x": 2,
+            "y": 6
+          },
+          {
+            "x": 2,
+            "y": 2
+          },
+          {
+            "x": 18,
+            "y": 2
+          },
+          {
+            "x": 22,
+            "y": 2
+          },
+          {
+            "x": 26,
+            "y": 2
+          },
+          {
+            "x": 34,
+            "y": 2
+          },
+          {
+            "x": 40,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w7",
+        "points": [
+          {
+            "x": 18,
+            "y": 4
+          },
+          {
+            "x": 18,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w8",
+        "points": [
+          {
+            "x": 26,
+            "y": 6
+          },
+          {
+            "x": 26,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w9",
+        "points": [
+          {
+            "x": 26,
+            "y": 10
+          },
+          {
+            "x": 26,
+            "y": 13
+          }
+        ]
+      },
+      {
+        "id": "w10",
+        "points": [
+          {
+            "x": 26,
+            "y": 17
+          },
+          {
+            "x": 26,
+            "y": 19
+          }
+        ]
+      },
+      {
+        "id": "w11",
+        "points": [
+          {
+            "x": 22,
+            "y": 4
+          },
+          {
+            "x": 22,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w12",
+        "points": [
+          {
+            "x": 22,
+            "y": 8
+          },
+          {
+            "x": 22,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w13",
+        "points": [
+          {
+            "x": 22,
+            "y": 16
+          },
+          {
+            "x": 22,
+            "y": 18
+          }
+        ]
+      },
+      {
+        "id": "w14",
+        "points": [
+          {
+            "x": 26,
+            "y": 10
+          },
+          {
+            "x": 31,
+            "y": 10
+          }
+        ]
+      },
+      {
+        "id": "w15",
+        "points": [
+          {
+            "x": 22,
+            "y": 12
+          },
+          {
+            "x": 31,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w16",
+        "points": [
+          {
+            "x": 34,
+            "y": 9
+          },
+          {
+            "x": 34,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w17",
+        "points": [
+          {
+            "x": 34,
+            "y": 13
+          },
+          {
+            "x": 34,
+            "y": 15
+          }
+        ]
+      },
+      {
+        "id": "w18",
+        "points": [
+          {
+            "x": 40,
+            "y": 3
+          },
+          {
+            "x": 40,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w19",
+        "points": [
+          {
+            "x": 37,
+            "y": 11
+          },
+          {
+            "x": 40,
+            "y": 11
+          }
+        ]
+      },
+      {
+        "id": "w20",
+        "points": [
+          {
+            "x": 40,
+            "y": 11
+          },
+          {
+            "x": 44,
+            "y": 11
+          }
+        ]
+      },
+      {
+        "id": "w21",
+        "points": [
+          {
+            "x": 44,
+            "y": 13
+          },
+          {
+            "x": 43,
+            "y": 13
+          },
+          {
+            "x": 43,
+            "y": 16
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "id": "scan",
+      "kind": "actuator",
+      "circuitId": "sv",
+      "gain": 0.166667,
+      "offset": 30,
+      "opticsId": "galvo",
+      "source": "angle",
+      "targetProp": "rotation"
+    },
+    {
+      "id": "hit",
+      "kind": "detector",
+      "circuitId": "pd",
+      "opticsId": "target"
+    }
+  ],
+  "view": {
+    "activeTab": "split",
+    "circuit": {
+      "cx": 25.5,
+      "cy": 11,
+      "zoom": 16.36
+    },
+    "optics": {
+      "cx": -22.5,
+      "cy": -105.58,
+      "zoom": 2.01
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "Classic NE555 astable multivibrator. C1 charges through RA + RB and discharges through RB into the DIS pin, so the output is high for 0.693 (RA + RB) C and low for 0.693 RB C: with RA = 10 k, RB = 33 k and C1 = 10 uF that is about 0.30 s high / 0.23 s low (~1.9 Hz). TRIG and THR are tied together; RESET is tied to the 9 V rail. The output drives a red LED through a 330 ohm resistor (~17 mA; the bipolar 555 output sits ~1.4 V below the rail when high). Probes show the capacitor voltage swinging between 1/3 and 2/3 of the supply and the square-wave output.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Blinking LED (555 astable)"
+  },
+  "optics": {
+    "components": [],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [
+      {
+        "id": "v1",
+        "type": "source.psu",
+        "name": "V1",
+        "position": {
+          "x": 1,
+          "y": 11
+        },
+        "rotation": 1,
+        "props": {
+          "currentLimit": 0.5,
+          "voltage": 9
+        }
+      },
+      {
+        "id": "g1",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 1,
+          "y": 15
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "u",
+        "type": "ic.555",
+        "name": "U1",
+        "position": {
+          "x": 12,
+          "y": 10
+        },
+        "rotation": 0,
+        "mirrored": true,
+        "props": {
+          "variant": "bipolar"
+        }
+      },
+      {
+        "id": "ra",
+        "type": "passive.resistor",
+        "name": "RA",
+        "position": {
+          "x": 5,
+          "y": 5
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 10000
+        }
+      },
+      {
+        "id": "rb",
+        "type": "passive.resistor",
+        "name": "RB",
+        "position": {
+          "x": 5,
+          "y": 11
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 33000
+        }
+      },
+      {
+        "id": "ct",
+        "type": "passive.capacitor",
+        "name": "C1",
+        "position": {
+          "x": 5,
+          "y": 16
+        },
+        "rotation": 1,
+        "props": {
+          "capacitance": 0.00001,
+          "maxVoltage": 25,
+          "polarized": true
+        }
+      },
+      {
+        "id": "g2",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 5,
+          "y": 19
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "g3",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 16,
+          "y": 7
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "r2",
+        "type": "passive.resistor",
+        "name": "R2",
+        "position": {
+          "x": 22,
+          "y": 11
+        },
+        "rotation": 0,
+        "props": {
+          "resistance": 330
+        }
+      },
+      {
+        "id": "led",
+        "type": "semi.led",
+        "name": "D1",
+        "position": {
+          "x": 26,
+          "y": 14
+        },
+        "rotation": 1,
+        "props": {
+          "color": "red"
+        }
+      },
+      {
+        "id": "g4",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 26,
+          "y": 18
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "pout",
+        "type": "meter.probe",
+        "name": "OUT",
+        "position": {
+          "x": 20,
+          "y": 8
+        },
+        "rotation": 0,
+        "props": {
+          "color": "#ff5a3c",
+          "window": 2
+        }
+      },
+      {
+        "id": "pcap",
+        "type": "meter.probe",
+        "name": "VC",
+        "position": {
+          "x": 2,
+          "y": 17
+        },
+        "rotation": 0,
+        "props": {
+          "color": "#ffd21a",
+          "window": 2
+        }
+      }
+    ],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": [
+      {
+        "id": "w1",
+        "points": [
+          {
+            "x": 1,
+            "y": 13
+          },
+          {
+            "x": 1,
+            "y": 15
+          }
+        ]
+      },
+      {
+        "id": "w2",
+        "points": [
+          {
+            "x": 1,
+            "y": 9
+          },
+          {
+            "x": 1,
+            "y": 3
+          },
+          {
+            "x": 5,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "id": "w3",
+        "points": [
+          {
+            "x": 5,
+            "y": 3
+          },
+          {
+            "x": 18,
+            "y": 3
+          },
+          {
+            "x": 18,
+            "y": 13
+          },
+          {
+            "x": 15,
+            "y": 13
+          }
+        ]
+      },
+      {
+        "id": "w4",
+        "points": [
+          {
+            "x": 9,
+            "y": 7
+          },
+          {
+            "x": 9,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "id": "w5",
+        "points": [
+          {
+            "x": 5,
+            "y": 7
+          },
+          {
+            "x": 5,
+            "y": 9
+          }
+        ]
+      },
+      {
+        "id": "w6",
+        "points": [
+          {
+            "x": 9,
+            "y": 9
+          },
+          {
+            "x": 5,
+            "y": 9
+          }
+        ]
+      },
+      {
+        "id": "w7",
+        "points": [
+          {
+            "x": 9,
+            "y": 11
+          },
+          {
+            "x": 7,
+            "y": 11
+          },
+          {
+            "x": 7,
+            "y": 13
+          },
+          {
+            "x": 5,
+            "y": 13
+          }
+        ]
+      },
+      {
+        "id": "w8",
+        "points": [
+          {
+            "x": 5,
+            "y": 13
+          },
+          {
+            "x": 5,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w9",
+        "points": [
+          {
+            "x": 5,
+            "y": 18
+          },
+          {
+            "x": 5,
+            "y": 19
+          }
+        ]
+      },
+      {
+        "id": "w10",
+        "points": [
+          {
+            "x": 15,
+            "y": 7
+          },
+          {
+            "x": 16,
+            "y": 7
+          }
+        ]
+      },
+      {
+        "id": "w11",
+        "points": [
+          {
+            "x": 15,
+            "y": 9
+          },
+          {
+            "x": 16,
+            "y": 9
+          },
+          {
+            "x": 16,
+            "y": 15
+          },
+          {
+            "x": 7,
+            "y": 15
+          },
+          {
+            "x": 7,
+            "y": 13
+          }
+        ]
+      },
+      {
+        "id": "w12",
+        "points": [
+          {
+            "x": 15,
+            "y": 11
+          },
+          {
+            "x": 20,
+            "y": 11
+          }
+        ]
+      },
+      {
+        "id": "w13",
+        "points": [
+          {
+            "x": 24,
+            "y": 11
+          },
+          {
+            "x": 26,
+            "y": 11
+          },
+          {
+            "x": 26,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w14",
+        "points": [
+          {
+            "x": 26,
+            "y": 16
+          },
+          {
+            "x": 26,
+            "y": 18
+          }
+        ]
+      },
+      {
+        "id": "w15",
+        "points": [
+          {
+            "x": 20,
+            "y": 8
+          },
+          {
+            "x": 20,
+            "y": 11
+          }
+        ]
+      },
+      {
+        "id": "w16",
+        "points": [
+          {
+            "x": 2,
+            "y": 17
+          },
+          {
+            "x": 3,
+            "y": 17
+          },
+          {
+            "x": 3,
+            "y": 13
+          },
+          {
+            "x": 5,
+            "y": 13
+          }
+        ]
+      }
+    ]
+  },
+  "links": [],
+  "view": {
+    "activeTab": "circuit",
+    "circuit": {
+      "cx": 13.5,
+      "cy": 11.5,
+      "zoom": 24.35
+    },
+    "optics": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 2
+    }
+  }
+}

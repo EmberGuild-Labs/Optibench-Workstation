@@ -1,0 +1,172 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "A 6 mm HeNe beam is divided by a 50/50 beam splitter at 45 degrees. One half goes up to the fixed mirror M1, the other straight on to mirror M2; both return to the splitter and half of each travels down to the line camera, where the two fields add (waveMode is on). M2 is tilted by 0.4 mrad, so the two wavefronts meet at an angle of 0.8 mrad and the camera shows straight fringes lambda / (2 alpha) = 0.79 mm apart. Both arms are 120 mm long. Things to try: move M2 along x by lambda/4 = 158 nm (0.000158 mm) - bright and dark fringes swap, the principle of interferometric length measurement; set the M2 rotation to 0 for a uniformly bright (or, after a quarter-wave shift, dark) field; give the laser a linewidth of 0.01 nm (coherence length lambda^2 / d_lambda = 40 mm) and lengthen one arm by 20 mm to watch the contrast fade; or put a quarter-wave plate at 45 degrees into one arm - the returning light is then polarized perpendicular to the other arm and the fringes vanish (Fresnel-Arago). The power meter at the top left samples 4 % of the light that returns towards the laser (the complementary output port): its reading falls when the camera side brightens.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Michelson Interferometer (wave optics)"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "HeNe laser",
+        "position": {
+          "x": -260,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 6,
+          "divergence": 0,
+          "polAngle": 90,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 21,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "pick",
+        "type": "splitter.plate",
+        "name": "Pick-off 4 %",
+        "position": {
+          "x": -150,
+          "y": 0
+        },
+        "rotation": -0.785398163,
+        "props": {
+          "loss": 0,
+          "reflectance": 0.04,
+          "size": 24
+        }
+      },
+      {
+        "id": "ret",
+        "type": "detector.power",
+        "name": "Return-port power",
+        "position": {
+          "x": -150,
+          "y": -60
+        },
+        "rotation": -1.570796327,
+        "props": {
+          "size": 20
+        }
+      },
+      {
+        "id": "dump",
+        "type": "absorber.block",
+        "name": "Beam dump",
+        "position": {
+          "x": -150,
+          "y": 50
+        },
+        "rotation": 0,
+        "props": {
+          "height": 8,
+          "width": 20
+        }
+      },
+      {
+        "id": "bs",
+        "type": "splitter.plate",
+        "name": "Beam splitter 50/50",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.785398163,
+        "props": {
+          "loss": 0,
+          "reflectance": 0.5,
+          "size": 40
+        }
+      },
+      {
+        "id": "m1",
+        "type": "mirror.flat",
+        "name": "M1 (fixed)",
+        "position": {
+          "x": 0,
+          "y": -120
+        },
+        "rotation": -1.570796327,
+        "props": {
+          "coating": "ideal",
+          "doubleSided": false,
+          "reflectivity": 1,
+          "size": 30
+        }
+      },
+      {
+        "id": "m2",
+        "type": "mirror.flat",
+        "name": "M2 (tilted 0.4 mrad)",
+        "position": {
+          "x": 120,
+          "y": 0
+        },
+        "rotation": 0.0004,
+        "props": {
+          "coating": "ideal",
+          "doubleSided": false,
+          "reflectivity": 1,
+          "size": 30
+        }
+      },
+      {
+        "id": "cam",
+        "type": "detector.camera",
+        "name": "Line camera",
+        "position": {
+          "x": 0,
+          "y": 130
+        },
+        "rotation": 1.570796327,
+        "props": {
+          "autoExposure": true,
+          "pitch": 14,
+          "pixels": 1024
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20,
+      "waveMode": true
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": -92.5,
+      "cy": 8,
+      "zoom": 1.83
+    }
+  }
+}

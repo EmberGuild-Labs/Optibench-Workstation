@@ -1,0 +1,24 @@
+OPTIBENCH WORKSTATION - SOFTWARE LICENSE (PLACEHOLDER)
+Version 0.1.0-alpha
+
+Copyright (c) 2026 Optibench. All rights reserved.
+
+This software and its associated documentation, artwork and example files
+(the "Software") are proprietary to Optibench. No licence or other right to
+copy, modify, distribute, sublicense, reverse engineer or otherwise use the
+Software is granted except as expressly agreed in writing by Optibench.
+
+PRE-RELEASE NOTICE: This is an alpha build provided for evaluation only. It
+may contain errors, may change without notice and must not be relied upon for
+safety-critical, laser-safety or electrical-safety decisions. Simulation
+results are approximations of physical behaviour.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL
+OPTIBENCH BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+This text is a placeholder and will be replaced by the final end-user licence
+agreement before general release.

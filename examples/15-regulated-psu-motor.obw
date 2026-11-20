@@ -1,0 +1,1006 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "Circuit-only project: a complete linear power supply driving a DC motor. V1 (12 V RMS, 50 Hz) feeds the bridge rectifier D1-D4; C1 smooths the pulsating DC to about 15 V with a few hundred mV of ripple (probe RAW). Behind the 1.6 A slow-blow fuse F1 the 7809 regulator U1 turns it into a clean 9 V motor rail (voltmeter VM1, buffered by C2 which also absorbs the energy the motor returns), from which the 7805 U2 makes the 5 V logic rail with the POWER LED. The L293-style H-bridge U3 switches the motor M1 between the 9 V rail and ground: the DIR switch puts logic high on IN1 or IN2 (R2 / R3 pull the other input low) to choose the direction, and the 200 Hz clock on the enable input chops the drive at 75 % duty (PWM speed control); between pulses the motor current free-wheels through the clamp diodes of the bridge. Flip DIR to brake and reverse the motor, stop the PWM clock by clicking it, or load the motor (load torque) and watch the current rise - the 7809 limits at 1.5 A, and a sustained current above about 2.1 A blows the fuse; click it to replace it.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Regulated Power Supply with Motor Drive"
+  },
+  "optics": {
+    "components": [],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [
+      {
+        "id": "v1",
+        "type": "source.ac",
+        "name": "V1",
+        "position": {
+          "x": 2,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "amplitude": 17,
+          "frequency": 50,
+          "seriesResistance": 0.5
+        }
+      },
+      {
+        "id": "d1",
+        "type": "semi.diode",
+        "name": "D1",
+        "position": {
+          "x": 10,
+          "y": 6
+        },
+        "rotation": 0,
+        "props": {
+          "bv": 400,
+          "is": 1e-09,
+          "n": 1.6,
+          "rs": 0.05
+        }
+      },
+      {
+        "id": "d2",
+        "type": "semi.diode",
+        "name": "D2",
+        "position": {
+          "x": 10,
+          "y": 10
+        },
+        "rotation": 0,
+        "props": {
+          "bv": 400,
+          "is": 1e-09,
+          "n": 1.6,
+          "rs": 0.05
+        }
+      },
+      {
+        "id": "d3",
+        "type": "semi.diode",
+        "name": "D3",
+        "position": {
+          "x": 10,
+          "y": 14
+        },
+        "rotation": 2,
+        "props": {
+          "bv": 400,
+          "is": 1e-09,
+          "n": 1.6,
+          "rs": 0.05
+        }
+      },
+      {
+        "id": "d4",
+        "type": "semi.diode",
+        "name": "D4",
+        "position": {
+          "x": 10,
+          "y": 18
+        },
+        "rotation": 2,
+        "props": {
+          "bv": 400,
+          "is": 1e-09,
+          "n": 1.6,
+          "rs": 0.05
+        }
+      },
+      {
+        "id": "f1",
+        "type": "passive.fuse",
+        "name": "F1",
+        "position": {
+          "x": 22,
+          "y": 6
+        },
+        "rotation": 0,
+        "props": {
+          "i2t": 1,
+          "rating": 1.6
+        }
+      },
+      {
+        "id": "u3",
+        "type": "ic.hbridge",
+        "name": "U3 L293",
+        "position": {
+          "x": 66,
+          "y": 10
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "g1",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 14,
+          "y": 20
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "praw",
+        "type": "meter.probe",
+        "name": "RAW",
+        "position": {
+          "x": 16,
+          "y": 3
+        },
+        "rotation": 0,
+        "props": {
+          "color": "#ff8a1a",
+          "window": 0.1
+        }
+      },
+      {
+        "id": "c1",
+        "type": "passive.capacitor",
+        "name": "C1",
+        "position": {
+          "x": 18,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "capacitance": 0.0022,
+          "esr": 0.05,
+          "maxVoltage": 35,
+          "polarized": true
+        }
+      },
+      {
+        "id": "g2",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 18,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "u1",
+        "type": "ic.regulator",
+        "name": "U1 7809",
+        "position": {
+          "x": 29,
+          "y": 6
+        },
+        "rotation": 0,
+        "props": {
+          "model": "7809",
+          "currentLimit": 1.5
+        }
+      },
+      {
+        "id": "g3",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 29,
+          "y": 10
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "c2",
+        "type": "passive.capacitor",
+        "name": "C2",
+        "position": {
+          "x": 35,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "capacitance": 0.00047,
+          "esr": 0.1,
+          "maxVoltage": 25,
+          "polarized": true
+        }
+      },
+      {
+        "id": "g4",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 35,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "vm",
+        "type": "meter.voltmeter",
+        "name": "VM1",
+        "position": {
+          "x": 39,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {}
+      },
+      {
+        "id": "g5",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 39,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "u2",
+        "type": "ic.regulator",
+        "name": "U2 7805",
+        "position": {
+          "x": 46,
+          "y": 16
+        },
+        "rotation": 0,
+        "props": {
+          "model": "7805"
+        }
+      },
+      {
+        "id": "g6",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 46,
+          "y": 20
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "c3",
+        "type": "passive.capacitor",
+        "name": "C3",
+        "position": {
+          "x": 52,
+          "y": 20
+        },
+        "rotation": 1,
+        "props": {
+          "capacitance": 1e-05,
+          "esr": 0.2
+        }
+      },
+      {
+        "id": "g7",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 52,
+          "y": 24
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "r1",
+        "type": "passive.resistor",
+        "name": "R1",
+        "position": {
+          "x": 56,
+          "y": 20
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 330
+        }
+      },
+      {
+        "id": "led",
+        "type": "semi.led",
+        "name": "POWER",
+        "position": {
+          "x": 56,
+          "y": 24
+        },
+        "rotation": 1,
+        "props": {
+          "color": "green"
+        }
+      },
+      {
+        "id": "g8",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 56,
+          "y": 28
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "sw",
+        "type": "switch.spdt",
+        "name": "DIR",
+        "position": {
+          "x": 57,
+          "y": 11
+        },
+        "rotation": 0,
+        "props": {
+          "position": "A"
+        }
+      },
+      {
+        "id": "r2",
+        "type": "passive.resistor",
+        "name": "R2",
+        "position": {
+          "x": 60,
+          "y": 16
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 10000
+        }
+      },
+      {
+        "id": "r3",
+        "type": "passive.resistor",
+        "name": "R3",
+        "position": {
+          "x": 62,
+          "y": 16
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 10000
+        }
+      },
+      {
+        "id": "g9",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 60,
+          "y": 20
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "g10",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 62,
+          "y": 20
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "ck",
+        "type": "source.clock",
+        "name": "PWM",
+        "position": {
+          "x": 60,
+          "y": 8
+        },
+        "rotation": 0,
+        "props": {
+          "duty": 75,
+          "frequency": 200
+        }
+      },
+      {
+        "id": "m1",
+        "type": "misc.motor",
+        "name": "M1",
+        "position": {
+          "x": 73,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {}
+      }
+    ],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 2e-05
+    },
+    "wires": [
+      {
+        "id": "w1",
+        "points": [
+          {
+            "x": 2,
+            "y": 8
+          },
+          {
+            "x": 2,
+            "y": 6
+          },
+          {
+            "x": 6,
+            "y": 6
+          },
+          {
+            "x": 8,
+            "y": 6
+          }
+        ]
+      },
+      {
+        "id": "w2",
+        "points": [
+          {
+            "x": 6,
+            "y": 6
+          },
+          {
+            "x": 6,
+            "y": 14
+          },
+          {
+            "x": 8,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w3",
+        "points": [
+          {
+            "x": 2,
+            "y": 12
+          },
+          {
+            "x": 2,
+            "y": 18
+          },
+          {
+            "x": 4,
+            "y": 18
+          },
+          {
+            "x": 8,
+            "y": 18
+          }
+        ]
+      },
+      {
+        "id": "w4",
+        "points": [
+          {
+            "x": 4,
+            "y": 18
+          },
+          {
+            "x": 4,
+            "y": 10
+          },
+          {
+            "x": 8,
+            "y": 10
+          }
+        ]
+      },
+      {
+        "id": "w5",
+        "points": [
+          {
+            "x": 12,
+            "y": 10
+          },
+          {
+            "x": 14,
+            "y": 10
+          },
+          {
+            "x": 14,
+            "y": 6
+          }
+        ]
+      },
+      {
+        "id": "w6",
+        "points": [
+          {
+            "x": 12,
+            "y": 6
+          },
+          {
+            "x": 14,
+            "y": 6
+          },
+          {
+            "x": 16,
+            "y": 6
+          },
+          {
+            "x": 18,
+            "y": 6
+          },
+          {
+            "x": 20,
+            "y": 6
+          }
+        ]
+      },
+      {
+        "id": "w7",
+        "points": [
+          {
+            "x": 12,
+            "y": 14
+          },
+          {
+            "x": 14,
+            "y": 14
+          },
+          {
+            "x": 14,
+            "y": 18
+          },
+          {
+            "x": 12,
+            "y": 18
+          }
+        ]
+      },
+      {
+        "id": "w8",
+        "points": [
+          {
+            "x": 14,
+            "y": 18
+          },
+          {
+            "x": 14,
+            "y": 20
+          }
+        ]
+      },
+      {
+        "id": "w9",
+        "points": [
+          {
+            "x": 16,
+            "y": 6
+          },
+          {
+            "x": 16,
+            "y": 3
+          }
+        ]
+      },
+      {
+        "id": "w10",
+        "points": [
+          {
+            "x": 18,
+            "y": 6
+          },
+          {
+            "x": 18,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w11",
+        "points": [
+          {
+            "x": 18,
+            "y": 12
+          },
+          {
+            "x": 18,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w12",
+        "points": [
+          {
+            "x": 24,
+            "y": 6
+          },
+          {
+            "x": 26,
+            "y": 6
+          }
+        ]
+      },
+      {
+        "id": "w13",
+        "points": [
+          {
+            "x": 29,
+            "y": 8
+          },
+          {
+            "x": 29,
+            "y": 10
+          }
+        ]
+      },
+      {
+        "id": "w14",
+        "points": [
+          {
+            "x": 32,
+            "y": 6
+          },
+          {
+            "x": 35,
+            "y": 6
+          },
+          {
+            "x": 39,
+            "y": 6
+          },
+          {
+            "x": 43,
+            "y": 6
+          },
+          {
+            "x": 66,
+            "y": 6
+          },
+          {
+            "x": 66,
+            "y": 7
+          }
+        ]
+      },
+      {
+        "id": "w15",
+        "points": [
+          {
+            "x": 35,
+            "y": 6
+          },
+          {
+            "x": 35,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w16",
+        "points": [
+          {
+            "x": 35,
+            "y": 12
+          },
+          {
+            "x": 35,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w17",
+        "points": [
+          {
+            "x": 39,
+            "y": 6
+          },
+          {
+            "x": 39,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w18",
+        "points": [
+          {
+            "x": 39,
+            "y": 12
+          },
+          {
+            "x": 39,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w19",
+        "points": [
+          {
+            "x": 43,
+            "y": 6
+          },
+          {
+            "x": 43,
+            "y": 16
+          }
+        ]
+      },
+      {
+        "id": "w20",
+        "points": [
+          {
+            "x": 46,
+            "y": 18
+          },
+          {
+            "x": 46,
+            "y": 20
+          }
+        ]
+      },
+      {
+        "id": "w21",
+        "points": [
+          {
+            "x": 49,
+            "y": 16
+          },
+          {
+            "x": 52,
+            "y": 16
+          },
+          {
+            "x": 54,
+            "y": 16
+          },
+          {
+            "x": 56,
+            "y": 16
+          }
+        ]
+      },
+      {
+        "id": "w22",
+        "points": [
+          {
+            "x": 52,
+            "y": 16
+          },
+          {
+            "x": 52,
+            "y": 18
+          }
+        ]
+      },
+      {
+        "id": "w23",
+        "points": [
+          {
+            "x": 52,
+            "y": 22
+          },
+          {
+            "x": 52,
+            "y": 24
+          }
+        ]
+      },
+      {
+        "id": "w24",
+        "points": [
+          {
+            "x": 56,
+            "y": 16
+          },
+          {
+            "x": 56,
+            "y": 18
+          }
+        ]
+      },
+      {
+        "id": "w25",
+        "points": [
+          {
+            "x": 56,
+            "y": 26
+          },
+          {
+            "x": 56,
+            "y": 28
+          }
+        ]
+      },
+      {
+        "id": "w26",
+        "points": [
+          {
+            "x": 55,
+            "y": 11
+          },
+          {
+            "x": 54,
+            "y": 11
+          },
+          {
+            "x": 54,
+            "y": 16
+          }
+        ]
+      },
+      {
+        "id": "w27",
+        "points": [
+          {
+            "x": 59,
+            "y": 10
+          },
+          {
+            "x": 60,
+            "y": 10
+          },
+          {
+            "x": 63,
+            "y": 10
+          }
+        ]
+      },
+      {
+        "id": "w28",
+        "points": [
+          {
+            "x": 59,
+            "y": 12
+          },
+          {
+            "x": 62,
+            "y": 12
+          },
+          {
+            "x": 63,
+            "y": 12
+          }
+        ]
+      },
+      {
+        "id": "w29",
+        "points": [
+          {
+            "x": 60,
+            "y": 10
+          },
+          {
+            "x": 60,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w30",
+        "points": [
+          {
+            "x": 62,
+            "y": 12
+          },
+          {
+            "x": 62,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w31",
+        "points": [
+          {
+            "x": 60,
+            "y": 18
+          },
+          {
+            "x": 60,
+            "y": 20
+          }
+        ]
+      },
+      {
+        "id": "w32",
+        "points": [
+          {
+            "x": 62,
+            "y": 18
+          },
+          {
+            "x": 62,
+            "y": 20
+          }
+        ]
+      },
+      {
+        "id": "w33",
+        "points": [
+          {
+            "x": 62,
+            "y": 8
+          },
+          {
+            "x": 63,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w34",
+        "points": [
+          {
+            "x": 69,
+            "y": 9
+          },
+          {
+            "x": 70,
+            "y": 9
+          },
+          {
+            "x": 70,
+            "y": 8
+          },
+          {
+            "x": 73,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w35",
+        "points": [
+          {
+            "x": 69,
+            "y": 11
+          },
+          {
+            "x": 70,
+            "y": 11
+          },
+          {
+            "x": 70,
+            "y": 12
+          },
+          {
+            "x": 73,
+            "y": 12
+          }
+        ]
+      }
+    ]
+  },
+  "links": [],
+  "view": {
+    "activeTab": "circuit",
+    "circuit": {
+      "cx": 37.5,
+      "cy": 15.5,
+      "zoom": 11.39
+    },
+    "optics": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 2
+    }
+  }
+}

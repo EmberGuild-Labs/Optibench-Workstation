@@ -1,0 +1,37 @@
+/* "Classic Professional" theme — see docs/THEME.md */
+:root {
+  color-scheme: light;
+  --face: #d4d0c8;
+  --face-light: #ffffff;
+  --face-mid: #e6e3dc;
+  --face-shadow: #808080;
+  --face-dark: #404040;
+  --window: #ffffff;
+  --text: #000000;
+  --text-disabled: #808080;
+  --select-bg: #0a246a;
+  --select-text: #ffffff;
+  --title-active: linear-gradient(90deg, #0a246a, #3a6ea5);
+  --title-inactive: linear-gradient(90deg, #808080, #b5b5b5);
+  --progress: #0a246a;
+  --link: #0000ee;
+  --info-bg: #ffffe1;
+  --ok: #008000;
+  --warn: #806000;
+  --danger: #c00000;
+
+  --font-ui: Tahoma, 'Microsoft Sans Serif', 'Segoe UI', sans-serif;
+  --font-mono: 'Lucida Console', Consolas, monospace;
+  --fs: 11px;
+
+  --raised: inset -1px -1px var(--face-dark), inset 1px 1px var(--face-light), inset -2px -2px var(--face-shadow), inset 2px 2px var(--face-mid);
+  --pressed: inset -1px -1px var(--face-light), inset 1px 1px var(--face-dark), inset -2px -2px var(--face-mid), inset 2px 2px var(--face-shadow);
+  --sunken: inset 1px 1px var(--face-shadow), inset -1px -1px var(--face-light), inset 2px 2px var(--face-dark), inset -2px -2px var(--face-mid);
+  --thin-raised: inset -1px -1px var(--face-shadow), inset 1px 1px var(--face-light);
+  --thin-sunken: inset 1px 1px var(--face-shadow), inset -1px -1px var(--face-light);
+
+  --titlebar-h: 22px;
+  --menubar-h: 20px;
+  --toolbar-h: 30px;
+  --statusbar-h: 22px;
+}

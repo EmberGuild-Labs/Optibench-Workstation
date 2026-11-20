@@ -1,0 +1,415 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "Two circuit-driven beam controls. CHOPPER: function generator FG2 produces a 10 Hz sawtooth (0-5 V) that turns a stopped 10-slot chopper wheel through an actuator link (wheel angle = 14.4 deg/V, i.e. two 36 degree slot periods per ramp), so the red laser beam is switched on and off at 20 Hz with a 50 % duty cycle; a 10 % pick-off plate sends a sample to the monitor photodiode, which sees the square wave. GALVO: FG1 sweeps a 2 Hz triangle of +-2.5 V; a second actuator link turns the galvo mirror by 2 deg/V (+-5 degrees mechanical), which swings the reflected beam by twice that angle and paints a 88 mm long line on the screen 250 mm above - a one-axis laser scanner. Try a sine or sawtooth scan, raise the amplitude until the beam leaves the screen, or switch the chopper's motor on (then a static trace shows the 50 % time average).",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Galvo Scanner & Optical Chopper"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "Laser diode 650 nm",
+        "position": {
+          "x": -300,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1.5,
+          "divergence": 0.5,
+          "polAngle": 90,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 3,
+          "wavelength": 650
+        }
+      },
+      {
+        "id": "chopper",
+        "type": "chopper.wheel",
+        "name": "Chopper wheel (10 slots)",
+        "position": {
+          "x": -210,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "duty": 0.5,
+          "frequency": 20,
+          "phase": 0,
+          "running": false,
+          "size": 30,
+          "slots": 10
+        }
+      },
+      {
+        "id": "pick",
+        "type": "splitter.plate",
+        "name": "Pick-off 10 %",
+        "position": {
+          "x": -120,
+          "y": 0
+        },
+        "rotation": -0.785398163,
+        "props": {
+          "loss": 0,
+          "reflectance": 0.1,
+          "size": 24
+        }
+      },
+      {
+        "id": "mon",
+        "type": "detector.photodiode",
+        "name": "Monitor photodiode",
+        "position": {
+          "x": -120,
+          "y": 70
+        },
+        "rotation": 1.570796327,
+        "props": {
+          "size": 8
+        }
+      },
+      {
+        "id": "galvo",
+        "type": "mirror.galvo",
+        "name": "Galvo mirror",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.785398163,
+        "props": {
+          "angle": 0,
+          "coating": "silver",
+          "size": 14
+        }
+      },
+      {
+        "id": "screen",
+        "type": "detector.screen",
+        "name": "Scan screen",
+        "position": {
+          "x": 0,
+          "y": -250
+        },
+        "rotation": -1.570796327,
+        "props": {
+          "bins": 128,
+          "size": 140
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [
+      {
+        "id": "fg1",
+        "type": "source.function_gen",
+        "name": "FG1 scan",
+        "position": {
+          "x": 2,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "amplitude": 2.5,
+          "frequency": 2,
+          "offset": 0,
+          "outputResistance": 50,
+          "waveform": "triangle"
+        }
+      },
+      {
+        "id": "g1",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 2,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "r1",
+        "type": "passive.resistor",
+        "name": "R1",
+        "position": {
+          "x": 8,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 10000
+        }
+      },
+      {
+        "id": "g2",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 8,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "p1",
+        "type": "meter.probe",
+        "name": "SCAN",
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "rotation": 0,
+        "props": {
+          "color": "#ffd21a",
+          "window": 1
+        }
+      },
+      {
+        "id": "fg2",
+        "type": "source.function_gen",
+        "name": "FG2 chop",
+        "position": {
+          "x": 16,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "amplitude": 2.5,
+          "frequency": 10,
+          "offset": 2.5,
+          "outputResistance": 50,
+          "waveform": "sawtooth"
+        }
+      },
+      {
+        "id": "g3",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 16,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "r2",
+        "type": "passive.resistor",
+        "name": "R2",
+        "position": {
+          "x": 22,
+          "y": 10
+        },
+        "rotation": 1,
+        "props": {
+          "resistance": 10000
+        }
+      },
+      {
+        "id": "g4",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 22,
+          "y": 14
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "p2",
+        "type": "meter.probe",
+        "name": "CHOP",
+        "position": {
+          "x": 19,
+          "y": 4
+        },
+        "rotation": 0,
+        "props": {
+          "color": "#3cc8ff",
+          "window": 1
+        }
+      }
+    ],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.0001
+    },
+    "wires": [
+      {
+        "id": "w1",
+        "points": [
+          {
+            "x": 2,
+            "y": 12
+          },
+          {
+            "x": 2,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w2",
+        "points": [
+          {
+            "x": 2,
+            "y": 8
+          },
+          {
+            "x": 2,
+            "y": 6
+          },
+          {
+            "x": 8,
+            "y": 6
+          },
+          {
+            "x": 8,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w3",
+        "points": [
+          {
+            "x": 8,
+            "y": 12
+          },
+          {
+            "x": 8,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w4",
+        "points": [
+          {
+            "x": 5,
+            "y": 6
+          },
+          {
+            "x": 5,
+            "y": 4
+          }
+        ]
+      },
+      {
+        "id": "w5",
+        "points": [
+          {
+            "x": 16,
+            "y": 12
+          },
+          {
+            "x": 16,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w6",
+        "points": [
+          {
+            "x": 16,
+            "y": 8
+          },
+          {
+            "x": 16,
+            "y": 6
+          },
+          {
+            "x": 22,
+            "y": 6
+          },
+          {
+            "x": 22,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w7",
+        "points": [
+          {
+            "x": 22,
+            "y": 12
+          },
+          {
+            "x": 22,
+            "y": 14
+          }
+        ]
+      },
+      {
+        "id": "w8",
+        "points": [
+          {
+            "x": 19,
+            "y": 6
+          },
+          {
+            "x": 19,
+            "y": 4
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "id": "scan",
+      "kind": "actuator",
+      "circuitId": "r1",
+      "gain": 2,
+      "offset": 0,
+      "opticsId": "galvo",
+      "targetProp": "angle"
+    },
+    {
+      "id": "chop",
+      "kind": "actuator",
+      "circuitId": "r2",
+      "gain": 14.4,
+      "offset": 0,
+      "opticsId": "chopper",
+      "targetProp": "phase"
+    }
+  ],
+  "view": {
+    "activeTab": "split",
+    "circuit": {
+      "cx": 12,
+      "cy": 9,
+      "zoom": 31.11
+    },
+    "optics": {
+      "cx": -137.5,
+      "cy": -88,
+      "zoom": 1.5
+    }
+  }
+}

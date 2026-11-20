@@ -1,0 +1,41 @@
+{
+  "name": "optibench-workstation",
+  "version": "0.1.0-alpha",
+  "description": "Optical bench and circuit co-simulation workstation",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "dist:win": "electron-vite build && electron-builder --win --config electron-builder.yml",
+    "dist:mac": "electron-vite build && electron-builder --mac --config electron-builder.yml",
+    "icons": "node scripts/build-icons.mjs",
+    "obw": "node scripts/obw.mjs"
+  },
+  "author": "Optibench",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "0.187.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0",
+    "electron-vite": "^6.0.0",
+    "png-to-ico": "^3.0.2",
+    "sharp": "^0.35.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  },
+  "dependencies": {
+    "lucide-react": "^1.76.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "0.187.0",
+    "zustand": "^5.1.0"
+  },
+  "productName": "Optibench Workstation"
+}

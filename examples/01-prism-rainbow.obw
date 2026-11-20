@@ -1,0 +1,140 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "White light from a 5778 K (sunlight-like) source passes through an equilateral F2 flint prism set near minimum deviation (~48.5 deg at 555 nm). Because the index of F2 rises towards the blue, violet leaves about 4 deg steeper than red. A silver fold mirror turns the fan back to horizontal, a 50/50 plate splitter sends half to a spectrometer and half to a screen where the rainbow lands (red at one end, violet at the other).",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Prism Rainbow"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "sun",
+        "type": "source.white",
+        "name": "White light (5778 K)",
+        "position": {
+          "x": -200,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamWidth": 2,
+          "power": 1,
+          "rays": 5,
+          "spectrum": "blackbody",
+          "temperature": 5778,
+          "wavelengthMax": 780,
+          "wavelengthMin": 380
+        }
+      },
+      {
+        "id": "prism",
+        "type": "prism.equilateral",
+        "name": "F2 prism",
+        "position": {
+          "x": 0,
+          "y": 8
+        },
+        "rotation": 0.424115,
+        "props": {
+          "coating": "none",
+          "material": "f2",
+          "size": 50
+        }
+      },
+      {
+        "id": "fold",
+        "type": "mirror.flat",
+        "name": "Fold mirror",
+        "position": {
+          "x": 81,
+          "y": 87
+        },
+        "rotation": -1.147554,
+        "props": {
+          "coating": "silver",
+          "size": 40
+        }
+      },
+      {
+        "id": "bs",
+        "type": "splitter.plate",
+        "name": "50/50 splitter",
+        "position": {
+          "x": 180,
+          "y": 87
+        },
+        "rotation": 0.785398,
+        "props": {
+          "reflectance": 0.5,
+          "size": 40
+        }
+      },
+      {
+        "id": "spec",
+        "type": "detector.spectrometer",
+        "name": "Spectrometer",
+        "position": {
+          "x": 180,
+          "y": 0
+        },
+        "rotation": -1.570796,
+        "props": {
+          "bins": 80,
+          "size": 30,
+          "wavelengthMax": 780,
+          "wavelengthMin": 380
+        }
+      },
+      {
+        "id": "screen",
+        "type": "detector.screen",
+        "name": "Screen",
+        "position": {
+          "x": 320,
+          "y": 87
+        },
+        "rotation": 0,
+        "props": {
+          "bins": 64,
+          "size": 60
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": 40,
+      "cy": 49.35,
+      "zoom": 1.48
+    }
+  }
+}

@@ -1,0 +1,122 @@
+# Optibench Workstation - electron-builder configuration
+# Build:   npm run icons && npm run dist:win      (see docs/INSTALL.md)
+# Output:  release/<version>/Optibench-Workstation-Setup-<version>.exe
+
+appId: com.optibench.workstation
+productName: Optibench Workstation
+copyright: Copyright (c) 2026 Optibench. All rights reserved.
+
+directories:
+  buildResources: build
+  output: release/${version}
+
+# Only the compiled electron-vite output and package.json are shipped (production
+# node_modules are added automatically by electron-builder).
+files:
+  - out/**
+  - package.json
+  - "!src/**"
+  - "!tests/**"
+  - "!docs/**"
+  - "!build/**"
+  - "!release/**"
+  - "!**/*.map"
+
+extraResources:
+  - from: examples
+    to: examples
+    filter:
+      - "*.obw"
+
+asar: true
+publish: null
+
+# .obw project files. On Windows NSIS registers the ProgID + icon (build/file-icon.ico);
+# on macOS this generates CFBundleDocumentTypes (icon build/file-icon.icns if present).
+fileAssociations:
+  - ext: obw
+    name: Optibench Project
+    description: Optibench Workstation Project
+    icon: file-icon          # resolved in buildResources: file-icon.ico (win) / file-icon.icns (mac)
+    role: Editor
+    mimeType: application/x-optibench
+
+# ---------------------------------------------------------------- Windows
+# Builds are UNSIGNED for now (no CSC_LINK / certificate configured). electron-builder skips
+# signing automatically; unsigned installers trigger Microsoft Defender SmartScreen
+# ("Windows protected your PC" -> More info -> Run anyway). See docs/INSTALL.md.
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+  artifactName: Optibench-Workstation-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Optibench Workstation
+  uninstallDisplayName: Optibench Workstation
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  installerSidebar: build/installerSidebar.bmp
+  uninstallerSidebar: build/installerSidebar.bmp
+  installerHeader: build/installerHeader.bmp
+  license: LICENSE.txt
+  deleteAppDataOnUninstall: false
+  runAfterFinish: true
+  artifactName: Optibench-Workstation-Setup-${version}.${ext}
+
+# ---------------------------------------------------------------- macOS (planned, not built yet)
+# Build on a Mac only: run `npm run icons` there (iconutil creates build/icon.icns and
+# build/file-icon.icns), then `npm run dist:mac`.
+# `icon` is intentionally not set: electron-builder picks build/icon.icns from buildResources
+# and falls back to converting build/icon.png when the .icns has not been generated.
+mac:
+  category: public.app-category.education
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+    - target: zip
+      arch: [x64, arm64]
+  artifactName: Optibench-Workstation-${version}-${arch}.${ext}
+  darkModeSupport: true
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  # Signing/notarization: provide CSC_LINK/CSC_KEY_PASSWORD (Developer ID Application) and
+  # APPLE_ID/APPLE_APP_SPECIFIC_PASSWORD/APPLE_TEAM_ID - see docs/INSTALL.md.
+  # For an unsigned local test build: CSC_IDENTITY_AUTO_DISCOVERY=false npm run dist:mac
+  extendInfo:
+    # CFBundleDocumentTypes for .obw is generated from `fileAssociations` above (electron-builder
+    # merges, so it is not repeated here to avoid a duplicate entry). We export the UTI:
+    UTExportedTypeDeclarations:
+      - UTTypeIdentifier: com.optibench.obw
+        UTTypeDescription: Optibench Workstation Project
+        UTTypeConformsTo:
+          - public.json
+          - public.data
+          - public.content
+        UTTypeIconFile: file-icon.icns
+        UTTypeTagSpecification:
+          public.filename-extension:
+            - obw
+          public.mime-type:
+            - application/x-optibench
+
+dmg:
+  title: Optibench Workstation ${version}
+  contents:
+    - x: 140
+      y: 200
+    - x: 400
+      y: 200
+      type: link
+      path: /Applications

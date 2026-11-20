@@ -1,0 +1,165 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "A mode-locked style 532 nm laser emits 50 ps pulses - 15 mm of light - every 2 ns (500 MHz). Its 10 mW is the average power; the peak power is 37.6 times higher (376 mW). Every traced ray segment carries the times t0 / t1 at which the light passes its two ends (group velocity), so the viewport can replay the pulses in slow motion, and sourceTemporalEnvelope() gives the pulse shape. The beam splitter sends half of each pulse straight on through a 100 mm BK7 block, where it travels at c / 1.55 (the group index, not the phase index 1.52), reaching photodiode A after 1.92 ns. The other half is folded into a 2 m fibre delay line (group delay 9.8 ns) and reaches photodiode B after 11.46 ns - 9.5 ns, almost five pulse periods, later. The static readings are average powers: 5 mW at A and about 4.6 mW at B (Fresnel loss at the fibre faces and attenuation). Try a longer fibre, a different glass or a shorter pulse.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Pulsed Laser in Slow Motion (time of flight)"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "Pulsed laser 532 nm",
+        "position": {
+          "x": -320,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1.5,
+          "divergence": 0,
+          "mode": "pulsed",
+          "polAngle": 90,
+          "polarization": "linear",
+          "power": 0.01,
+          "pulseWidth": 5e-11,
+          "rays": 3,
+          "repRate": 500000000,
+          "wavelength": 532
+        }
+      },
+      {
+        "id": "bs",
+        "type": "splitter.plate",
+        "name": "Beam splitter 50/50",
+        "position": {
+          "x": -200,
+          "y": 0
+        },
+        "rotation": 0.785398163,
+        "props": {
+          "loss": 0,
+          "reflectance": 0.5,
+          "size": 30
+        }
+      },
+      {
+        "id": "slab",
+        "type": "block.slab",
+        "name": "BK7 delay block 100 mm",
+        "position": {
+          "x": -40,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "absorption": 0,
+          "coating": "ideal",
+          "height": 30,
+          "material": "bk7",
+          "width": 100
+        }
+      },
+      {
+        "id": "pdA",
+        "type": "detector.photodiode",
+        "name": "Photodiode A (direct)",
+        "position": {
+          "x": 200,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "size": 8
+        }
+      },
+      {
+        "id": "m1",
+        "type": "mirror.flat",
+        "name": "Fold mirror",
+        "position": {
+          "x": -200,
+          "y": -130
+        },
+        "rotation": 3.926990817,
+        "props": {
+          "coating": "ideal",
+          "doubleSided": false,
+          "reflectivity": 1,
+          "size": 30
+        }
+      },
+      {
+        "id": "fiber",
+        "type": "fiber.cable",
+        "name": "Fibre delay line 2 m",
+        "position": {
+          "x": -90,
+          "y": -130
+        },
+        "rotation": 0,
+        "props": {
+          "attenuationModel": "silica",
+          "coreDiameter": 2,
+          "coreIndex": 1.4585,
+          "endRotation": 0,
+          "endX": 90,
+          "endY": -130,
+          "length": 2,
+          "na": 0.39,
+          "pm": false
+        }
+      },
+      {
+        "id": "pdB",
+        "type": "detector.photodiode",
+        "name": "Photodiode B (via fibre)",
+        "position": {
+          "x": 200,
+          "y": -130
+        },
+        "rotation": 0,
+        "props": {
+          "size": 8
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": -80.5,
+      "cy": -62.8,
+      "zoom": 1.45
+    }
+  }
+}

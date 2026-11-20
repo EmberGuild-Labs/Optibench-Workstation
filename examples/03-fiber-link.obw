@@ -1,0 +1,114 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "A 5 mW red laser is focused by an f = 25 mm plano-convex lens into the 200 um core of a 10 m silica multimode fibre (NA 0.22; the beam NA is only ~0.04, well inside the acceptance cone). The fibre end B is routed to a second bench position where the light exits as a cone and is caught by a power meter. Losses: Fresnel reflection at the lens and both fibre faces plus ~5 dB/km attenuation. Move the fibre face away from the focus (or lower the NA) to watch the coupling drop.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Fiber Link"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "Laser 650 nm",
+        "position": {
+          "x": -220,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 2,
+          "divergence": 0.5,
+          "power": 0.005,
+          "rays": 7,
+          "wavelength": 650
+        }
+      },
+      {
+        "id": "lens",
+        "type": "lens.planoconvex",
+        "name": "Coupling lens f=25",
+        "position": {
+          "x": -120,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "coating": "mgf2",
+          "diameter": 12.7,
+          "focalLength": 25
+        }
+      },
+      {
+        "id": "fiber",
+        "type": "fiber.cable",
+        "name": "Multimode fibre 10 m",
+        "position": {
+          "x": -97,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "attenuationModel": "silica",
+          "coreDiameter": 0.2,
+          "coreIndex": 1.4585,
+          "endRotation": 0,
+          "endX": 160,
+          "endY": 90,
+          "length": 10,
+          "na": 0.22,
+          "pm": false
+        }
+      },
+      {
+        "id": "pm",
+        "type": "detector.power",
+        "name": "Power meter",
+        "position": {
+          "x": 200,
+          "y": 90
+        },
+        "rotation": 0,
+        "props": {
+          "size": 20
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": -28.5,
+      "cy": 46,
+      "zoom": 1.72
+    }
+  }
+}

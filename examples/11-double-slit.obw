@@ -1,0 +1,195 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "Wave optics is switched on (scene setting waveMode), so narrow openings diffract and detectors add light fields instead of powers. Top row (y = 0): Young's experiment - a 2 mm HeNe beam (632.8 nm) covers two 0.04 mm slits 0.25 mm apart; the screen 500 mm behind shows cos^2 fringes with spacing lambda L / d = 1.27 mm under the wide single-slit envelope. Middle row (y = 130): one 0.1 mm slit and a 1024-pixel line camera - the sinc^2 pattern with its first dark band at lambda L / a = 3.16 mm from the centre and side lobes of 4.7 %. Bottom row (y = 260): five slits 0.1 mm apart - principal maxima lambda L / d = 3.16 mm apart, each far sharper than a two-slit fringe (width ~ 1/N of the spacing), with three faint subsidiary maxima in between: the beginning of a diffraction grating. Try changing the slit separation, the wavelength or the number of slits, or switch waveMode off to see the purely geometric shadows.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Double Slit, Single Slit & Grating Slits (wave optics)"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser1",
+        "type": "source.laser",
+        "name": "HeNe laser",
+        "position": {
+          "x": -300,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 2,
+          "divergence": 0,
+          "polAngle": 90,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 9,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "slits2",
+        "type": "aperture.double_slit",
+        "name": "Double slit d = 0.25 mm",
+        "position": {
+          "x": -150,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "separation": 0.25,
+          "size": 30,
+          "slits": 2,
+          "width": 0.04
+        }
+      },
+      {
+        "id": "screen",
+        "type": "detector.screen",
+        "name": "Screen (L = 500 mm)",
+        "position": {
+          "x": 350,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "bins": 1024,
+          "size": 40
+        }
+      },
+      {
+        "id": "laser2",
+        "type": "source.laser",
+        "name": "HeNe laser",
+        "position": {
+          "x": -300,
+          "y": 130
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 2,
+          "divergence": 0,
+          "polAngle": 90,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 9,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "slit1",
+        "type": "aperture.slit",
+        "name": "Single slit a = 0.1 mm",
+        "position": {
+          "x": -150,
+          "y": 130
+        },
+        "rotation": 0,
+        "props": {
+          "size": 30,
+          "width": 0.1
+        }
+      },
+      {
+        "id": "camera",
+        "type": "detector.camera",
+        "name": "Line camera 1024 px",
+        "position": {
+          "x": 350,
+          "y": 130
+        },
+        "rotation": 0,
+        "props": {
+          "autoExposure": true,
+          "pitch": 40,
+          "pixels": 1024
+        }
+      },
+      {
+        "id": "laser3",
+        "type": "source.laser",
+        "name": "HeNe laser",
+        "position": {
+          "x": -300,
+          "y": 260
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 2,
+          "divergence": 0,
+          "polAngle": 90,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 9,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "slits5",
+        "type": "aperture.double_slit",
+        "name": "Five slits d = 0.1 mm",
+        "position": {
+          "x": -150,
+          "y": 260
+        },
+        "rotation": 0,
+        "props": {
+          "separation": 0.1,
+          "size": 30,
+          "slits": 5,
+          "width": 0.03
+        }
+      },
+      {
+        "id": "screen5",
+        "type": "detector.screen",
+        "name": "Screen (L = 500 mm)",
+        "position": {
+          "x": 350,
+          "y": 260
+        },
+        "rotation": 0,
+        "props": {
+          "bins": 1024,
+          "size": 40
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20,
+      "waveMode": true
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": 5.5,
+      "cy": 130,
+      "zoom": 1.2
+    }
+  }
+}

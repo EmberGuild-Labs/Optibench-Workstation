@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Optibench Workstation - small-size icon variant (used for 16-48 px rasters).
+     Same composition as icon.svg with heavier strokes, larger tile and no fine detail. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0C1538"/>
+      <stop offset="0.55" stop-color="#1B2468"/>
+      <stop offset="1" stop-color="#3F2296"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="300" y1="220" x2="760" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.08"/>
+    </linearGradient>
+    <clipPath id="tile">
+      <rect x="0" y="0" width="1024" height="1024" rx="192"/>
+    </clipPath>
+  </defs>
+  <rect x="0" y="0" width="1024" height="1024" rx="192" fill="url(#bg)"/>
+  <g clip-path="url(#tile)">
+    <path d="M0 640 L381 460" stroke="#FFFFFF" stroke-width="64"/>
+    <polygon points="622.0,417.0 631.4,436.4 1024,560 1024,440" fill="#FF3B5C"/>
+    <polygon points="631.4,436.4 640.8,455.8 1024,680 1024,560" fill="#FFB23F"/>
+    <polygon points="640.8,455.8 650.2,475.2 1024,800 1024,680" fill="#4BE37A"/>
+    <polygon points="650.2,475.2 659.6,494.6 1024,920 1024,800" fill="#3DE0FF"/>
+    <polygon points="659.6,494.6 669.0,514.0 1024,1040 1024,920" fill="#8B5CFF"/>
+  </g>
+  <polygon points="512,190 250,730 774,730" fill="url(#glass)"/>
+  <polygon points="381,460 622,417 669,514" fill="#FFFFFF" fill-opacity="0.75"/>
+  <polygon points="512,190 250,730 774,730" fill="none" stroke="#FFFFFF" stroke-width="56" stroke-linejoin="round"/>
+</svg>

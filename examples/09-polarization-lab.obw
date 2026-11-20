@@ -1,0 +1,252 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "Three experiments with identical 5 mW p-polarized (0 deg) HeNe lasers. Row 1 (y = 0) - Malus's law: an analyser at 60 deg passes I0 cos^2(60 deg) = 25 % (x 0.95 peak transmission). Change the angle and watch the meter follow cos^2. Row 2 (y = 120) - three-polarizer paradox: polarizers at 0 and 90 deg are crossed (no light), but inserting a third at 45 deg between them lets 1/4 of the light through (each crossing at 45 deg passes cos^2 45 = 1/2). Remove the middle one and the meter drops to ~0. Row 3 (y = 240) - a half-wave plate with its fast axis at 22.5 deg rotates the polarization by 45 deg; a polarizing beam-splitter cube transmits the p component and reflects the s component upwards, splitting the beam 50/50 between two power meters. A quarter-wave plate at 45 deg in the last stretch turns the transmitted p light circular: the final analyser at 0 deg then passes half of it regardless of its angle.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Polarization Lab"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "l1",
+        "type": "source.laser",
+        "name": "Laser 1 (p)",
+        "position": {
+          "x": -250,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1,
+          "polAngle": 0,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 3,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "a1",
+        "type": "polarizer.linear",
+        "name": "Analyser 60 deg",
+        "position": {
+          "x": -50,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "angle": 60
+        }
+      },
+      {
+        "id": "pm1",
+        "type": "detector.power",
+        "name": "Malus meter",
+        "position": {
+          "x": 100,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "l2",
+        "type": "source.laser",
+        "name": "Laser 2 (p)",
+        "position": {
+          "x": -250,
+          "y": 120
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1,
+          "polAngle": 0,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 3,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "p21",
+        "type": "polarizer.linear",
+        "name": "Polarizer 0 deg",
+        "position": {
+          "x": -130,
+          "y": 120
+        },
+        "rotation": 0,
+        "props": {
+          "angle": 0
+        }
+      },
+      {
+        "id": "p22",
+        "type": "polarizer.linear",
+        "name": "Middle polarizer 45 deg",
+        "position": {
+          "x": -50,
+          "y": 120
+        },
+        "rotation": 0,
+        "props": {
+          "angle": 45
+        }
+      },
+      {
+        "id": "p23",
+        "type": "polarizer.linear",
+        "name": "Polarizer 90 deg",
+        "position": {
+          "x": 30,
+          "y": 120
+        },
+        "rotation": 0,
+        "props": {
+          "angle": 90
+        }
+      },
+      {
+        "id": "pm2",
+        "type": "detector.power",
+        "name": "Paradox meter",
+        "position": {
+          "x": 100,
+          "y": 120
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "l3",
+        "type": "source.laser",
+        "name": "Laser 3 (p)",
+        "position": {
+          "x": -250,
+          "y": 240
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1,
+          "polAngle": 0,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 3,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "hwp",
+        "type": "waveplate.half",
+        "name": "HWP 22.5 deg",
+        "position": {
+          "x": -150,
+          "y": 240
+        },
+        "rotation": 0,
+        "props": {
+          "designWavelength": 632.8,
+          "fastAxis": 22.5
+        }
+      },
+      {
+        "id": "pbs",
+        "type": "splitter.pbs",
+        "name": "PBS cube",
+        "position": {
+          "x": -50,
+          "y": 240
+        },
+        "rotation": 0,
+        "props": {
+          "size": 25.4
+        }
+      },
+      {
+        "id": "pmr",
+        "type": "detector.power",
+        "name": "PBS reflected (s)",
+        "position": {
+          "x": -50,
+          "y": 160
+        },
+        "rotation": -1.570796,
+        "props": {}
+      },
+      {
+        "id": "qwp",
+        "type": "waveplate.quarter",
+        "name": "QWP 45 deg",
+        "position": {
+          "x": 10,
+          "y": 240
+        },
+        "rotation": 0,
+        "props": {
+          "designWavelength": 632.8,
+          "fastAxis": 45
+        }
+      },
+      {
+        "id": "a3",
+        "type": "polarizer.linear",
+        "name": "Analyser 0 deg",
+        "position": {
+          "x": 50,
+          "y": 240
+        },
+        "rotation": 0,
+        "props": {
+          "angle": 0
+        }
+      },
+      {
+        "id": "pmt",
+        "type": "detector.power",
+        "name": "PBS transmitted (p) after QWP + analyser",
+        "position": {
+          "x": 100,
+          "y": 240
+        },
+        "rotation": 0,
+        "props": {}
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": -93.5,
+      "cy": 120,
+      "zoom": 1.75
+    }
+  }
+}

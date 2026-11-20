@@ -1,0 +1,285 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "A p-polarized HeNe beam passes an input polarizer (0 deg), a 20 mm TGG Faraday rotator and an analyser at -45 deg before a power meter. TGG has a negative Verdet constant (-134 rad/(T m)), so a positive field rotates the polarization towards negative angles. The rotator field is not fixed: an actuator link sets bField = 0.75 T/A x coil current (the gain stands in for an iron-yoke electromagnet). In the circuit a function generator sweeps the coil current between 0 and ~0.4 A at 2 Hz; the rotation theta = V B L swings between 0 and 45 deg, so the transmitted power follows Malus's law between 50 % (no current) and ~95 % (at 0.4 A, polarization aligned with the analyser); at that peak field (0.3 T) the polarizer pair acts as an isolator: a back-reflected beam would be rotated a further 45 deg and blocked by the input polarizer.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Faraday Rotator Modulator"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "HeNe laser (p-pol)",
+        "position": {
+          "x": -220,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 1,
+          "polAngle": 0,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 3,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "pol1",
+        "type": "polarizer.linear",
+        "name": "Input polarizer 0 deg",
+        "position": {
+          "x": -110,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "angle": 0,
+          "size": 25
+        }
+      },
+      {
+        "id": "faraday",
+        "type": "magneto.faraday",
+        "name": "TGG Faraday rotator",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "bField": 0,
+          "coating": "ideal",
+          "diameter": 10,
+          "length": 20,
+          "material": "tgg"
+        }
+      },
+      {
+        "id": "pol2",
+        "type": "polarizer.linear",
+        "name": "Analyser",
+        "position": {
+          "x": 110,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "angle": -45,
+          "size": 25
+        }
+      },
+      {
+        "id": "pm",
+        "type": "detector.power",
+        "name": "Power meter",
+        "position": {
+          "x": 200,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "size": 20
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [
+      {
+        "id": "fg",
+        "type": "source.function_gen",
+        "name": "FG1",
+        "position": {
+          "x": 0,
+          "y": 4
+        },
+        "rotation": 1,
+        "props": {
+          "amplitude": 2,
+          "frequency": 2,
+          "offset": 2,
+          "outputResistance": 2,
+          "waveform": "sine"
+        }
+      },
+      {
+        "id": "am",
+        "type": "meter.ammeter",
+        "name": "A1",
+        "position": {
+          "x": 6,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {}
+      },
+      {
+        "id": "coil",
+        "type": "opto.coil",
+        "name": "EM1",
+        "position": {
+          "x": 12,
+          "y": 4
+        },
+        "rotation": 1,
+        "props": {
+          "inductance": 0.01,
+          "length": 0.05,
+          "resistance": 8,
+          "turns": 500
+        }
+      },
+      {
+        "id": "probe",
+        "type": "meter.probe",
+        "name": "P1",
+        "position": {
+          "x": 2,
+          "y": -3
+        },
+        "rotation": 0,
+        "props": {
+          "window": 1
+        }
+      },
+      {
+        "id": "gnd",
+        "type": "misc.ground",
+        "name": "GND",
+        "position": {
+          "x": 6,
+          "y": 8
+        },
+        "rotation": 0,
+        "props": {}
+      }
+    ],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": [
+      {
+        "id": "w1",
+        "points": [
+          {
+            "x": 0,
+            "y": 2
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 4,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "id": "w2",
+        "points": [
+          {
+            "x": 8,
+            "y": 0
+          },
+          {
+            "x": 12,
+            "y": 0
+          },
+          {
+            "x": 12,
+            "y": 2
+          }
+        ]
+      },
+      {
+        "id": "w3",
+        "points": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 2,
+            "y": -3
+          }
+        ]
+      },
+      {
+        "id": "w4",
+        "points": [
+          {
+            "x": 0,
+            "y": 6
+          },
+          {
+            "x": 0,
+            "y": 8
+          },
+          {
+            "x": 6,
+            "y": 8
+          }
+        ]
+      },
+      {
+        "id": "w5",
+        "points": [
+          {
+            "x": 6,
+            "y": 8
+          },
+          {
+            "x": 12,
+            "y": 8
+          },
+          {
+            "x": 12,
+            "y": 6
+          }
+        ]
+      }
+    ]
+  },
+  "links": [
+    {
+      "id": "act1",
+      "kind": "actuator",
+      "circuitId": "coil",
+      "gain": 0.75,
+      "offset": 0,
+      "opticsId": "faraday",
+      "targetProp": "bField"
+    }
+  ],
+  "view": {
+    "activeTab": "split",
+    "circuit": {
+      "cx": 6,
+      "cy": 2.5,
+      "zoom": 29.47
+    },
+    "optics": {
+      "cx": -28.5,
+      "cy": 0,
+      "zoom": 1.72
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "format": "optibench-workstation",
+  "version": 1,
+  "meta": {
+    "appVersion": "0.1.0-alpha",
+    "author": "Optibench examples",
+    "created": "2026-11-19T00:00:00.000Z",
+    "description": "Top row (y = 0): a 2 mm HeNe beam is expanded 4x by a Keplerian telescope (f = 25 mm and f = 100 mm plano-convex lenses, spaced f1 + f2 = 125 mm, curved faces towards the collimated side) and the 8 mm beam is focused by an f = 100 mm bi-convex lens onto a power meter. Bottom row (y = 150): a wide 40 mm collimated beam through a strongly curved f = 50 mm bi-convex lens shows spherical aberration - marginal rays cross the axis well before the paraxial focus, so the screen at the paraxial focus sees a blur instead of a point.",
+    "dimension": "2d",
+    "modified": "2026-11-19T00:00:00.000Z",
+    "title": "Lens Focusing & Spherical Aberration"
+  },
+  "optics": {
+    "components": [
+      {
+        "id": "laser",
+        "type": "source.laser",
+        "name": "HeNe laser",
+        "position": {
+          "x": -320,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "beamDiameter": 2,
+          "divergence": 0,
+          "polAngle": 0,
+          "polarization": "linear",
+          "power": 0.005,
+          "rays": 7,
+          "wavelength": 632.8
+        }
+      },
+      {
+        "id": "l1",
+        "type": "lens.planoconvex",
+        "name": "L1 f=25",
+        "position": {
+          "x": -240,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "coating": "mgf2",
+          "diameter": 12.7,
+          "focalLength": 25
+        }
+      },
+      {
+        "id": "l2",
+        "type": "lens.planoconvex",
+        "name": "L2 f=100",
+        "position": {
+          "x": -115,
+          "y": 0
+        },
+        "rotation": 3.141593,
+        "props": {
+          "coating": "mgf2",
+          "diameter": 25.4,
+          "focalLength": 100
+        }
+      },
+      {
+        "id": "l3",
+        "type": "lens.biconvex",
+        "name": "L3 focusing f=100",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "coating": "mgf2",
+          "diameter": 25.4,
+          "focalLength": 100
+        }
+      },
+      {
+        "id": "pm",
+        "type": "detector.power",
+        "name": "Power meter",
+        "position": {
+          "x": 96,
+          "y": 0
+        },
+        "rotation": 0,
+        "props": {
+          "size": 10
+        }
+      },
+      {
+        "id": "wide",
+        "type": "source.beam",
+        "name": "Wide collimated beam",
+        "position": {
+          "x": -150,
+          "y": 150
+        },
+        "rotation": 0,
+        "props": {
+          "beamWidth": 40,
+          "power": 1,
+          "rays": 21,
+          "spectrum": "mono",
+          "wavelength": 550
+        }
+      },
+      {
+        "id": "l4",
+        "type": "lens.biconvex",
+        "name": "L4 f=50 (strong)",
+        "position": {
+          "x": 0,
+          "y": 150
+        },
+        "rotation": 0,
+        "props": {
+          "diameter": 50,
+          "edgeThickness": 2,
+          "focalLength": 50
+        }
+      },
+      {
+        "id": "scr",
+        "type": "detector.screen",
+        "name": "Screen at paraxial focus",
+        "position": {
+          "x": 55,
+          "y": 150
+        },
+        "rotation": 0,
+        "props": {
+          "bins": 80,
+          "size": 40
+        }
+      }
+    ],
+    "settings": {
+      "ambientMedium": "air",
+      "maxBounces": 64,
+      "minIntensity": 0.0001,
+      "raysPerSource": 32,
+      "spectralSamples": 24,
+      "temperatureC": 20
+    }
+  },
+  "circuit": {
+    "components": [],
+    "settings": {
+      "gmin": 1e-12,
+      "simSpeed": 1,
+      "timestep": 0.00001
+    },
+    "wires": []
+  },
+  "links": [],
+  "view": {
+    "activeTab": "optics",
+    "circuit": {
+      "cx": 0,
+      "cy": 0,
+      "zoom": 20
+    },
+    "optics": {
+      "cx": -130.5,
+      "cy": 81.15,
+      "zoom": 1.73
+    }
+  }
+}
