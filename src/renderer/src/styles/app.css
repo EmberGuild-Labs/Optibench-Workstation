@@ -175,6 +175,7 @@ input[type='range']:focus-visible { outline: 1px dotted #000; outline-offset: 0;
 .tb-btn:disabled svg { filter: drop-shadow(1px 1px 0 #fff); }
 .tb-btn:focus-visible { outline: 1px dotted #000; outline-offset: -3px; }
 .tb-chip { margin-left: 4px; padding: 2px 5px; background: var(--info-bg); border: 1px solid #000; white-space: nowrap; }
+.tb-chip-hint { color: var(--text-dim, #555); font-weight: normal; }
 .sim-state { margin: 0 4px; padding: 1px 6px; box-shadow: var(--thin-sunken); background: var(--window); font-weight: bold; min-width: 64px; text-align: center; }
 .sim-state.running { color: var(--ok); }
 .sim-state.paused { color: var(--warn); }

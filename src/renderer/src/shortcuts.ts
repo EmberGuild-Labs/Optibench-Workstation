@@ -18,7 +18,7 @@ function isTextTarget(t: EventTarget | null): boolean {
 export const SHORTCUT_GROUPS: { title: string; items: [string, string][] }[] = [
   { title: 'File', items: [['Ctrl+N', 'New project'], ['Ctrl+O', 'Open project'], ['Ctrl+S', 'Save'], ['Ctrl+Shift+S', 'Save as'], ['Ctrl+Shift+E', 'Export viewport PNG'], ['Ctrl+W', 'Close project']] },
   { title: 'Edit', items: [['Ctrl+Z', 'Undo'], ['Ctrl+Shift+Z / Ctrl+Y', 'Redo'], ['Ctrl+X / C / V', 'Cut / copy / paste'], ['Ctrl+D', 'Duplicate'], ['Del / Backspace', 'Delete selection'], ['Ctrl+A', 'Select all'], ['R / Shift+R', 'Rotate (15° optics, 90° circuit)'], ['Esc', 'Cancel tool / deselect']] },
-  { title: 'Tools', items: [['V', 'Select'], ['H', 'Pan'], ['Space (hold)', 'Temporary pan'], ['W', 'Wire (circuit)'], ['P', 'Probe (circuit)'], ['M', 'Measure (optics): click-click distance, Shift+click angle']] },
+  { title: 'Tools', items: [['Esc / V / right-click', 'Stop placing, back to the Select pointer'], ['V', 'Select'], ['H', 'Pan'], ['Space (hold) / middle-drag', 'Temporary pan'], ['Shift+drag empty space', 'Pan the 2D view'], ['W', 'Wire (circuit)'], ['P', 'Probe (circuit)'], ['M', 'Measure (optics): click-click distance, Shift+click angle']] },
   { title: 'View', items: [['1 / 2 / 3', 'Optics / Circuit / Split'], ['Ctrl+3', 'Toggle 2D / 3D optics bench'], ['F', 'Frame selection'], ['Shift+F', 'Frame all'], ['Ctrl+= / Ctrl+-', 'Zoom in / out'], ['Ctrl+0', 'Reset zoom'], ['G', 'Toggle grid'], ['Ctrl+B / I / J', 'Palette / inspector / dock'], ['F11', 'Full screen']] },
   { title: 'Simulation', items: [['F5', 'Run / pause'], ['F6', 'Step'], ['Shift+F5', 'Reset'], ['[ / ]', 'Slower / faster time scale']] },
   { title: 'Help', items: [['Ctrl+/', 'Keyboard shortcuts']] }
@@ -109,10 +109,41 @@ export function installShortcuts(): () => void {
     if (e.key === ' ') useApp.getState().setSpacePan(false);
   };
   const onBlur = (): void => useApp.getState().setSpacePan(false);
+  // ---- Leaving placement mode ("back to the mouse"). Runs in the capture phase, before the viewports'
+  // own handlers, so Esc / right-click always end placement first (instead of only deselecting the part
+  // that was just placed) and never open the context menu while placing.
+  const placing = (): boolean => { const s = useApp.getState(); return s.tool === 'place' || !!s.placeLibrary; };
+  const stopPlacing = (): void => {
+    const s = useApp.getState();
+    if (s.placeLibrary) s.startPlaceLibrary(null);
+    s.setTool('select');
+  };
+  const onDownCapture = (e: KeyboardEvent): void => {
+    if (e.key !== 'Escape' || e.ctrlKey || e.altKey || e.metaKey) return;
+    if (useApp.getState().ui.modal || isTextTarget(e.target) || !placing()) return;
+    e.preventDefault(); e.stopPropagation();
+    stopPlacing();
+  };
+  let rightDown: { x: number; y: number } | null = null;
+  const inViewport = (t: EventTarget | null): boolean => t instanceof Element && !!t.closest('canvas, .viewport, [data-viewport]');
+  const onPointerDownCapture = (e: PointerEvent): void => { if (e.button === 2) rightDown = { x: e.clientX, y: e.clientY }; };
+  const onContextMenuCapture = (e: MouseEvent): void => {
+    const d = rightDown; rightDown = null;
+    if (!placing() || !inViewport(e.target)) return;
+    if (d && Math.hypot(e.clientX - d.x, e.clientY - d.y) > 4) return; // a right-drag (3D orbit/pan), not a click
+    e.preventDefault(); e.stopPropagation();
+    stopPlacing();
+  };
+  window.addEventListener('keydown', onDownCapture, true);
+  window.addEventListener('pointerdown', onPointerDownCapture, true);
+  window.addEventListener('contextmenu', onContextMenuCapture, true);
   window.addEventListener('keydown', onDown);
   window.addEventListener('keyup', onUp);
   window.addEventListener('blur', onBlur);
   return () => {
+    window.removeEventListener('keydown', onDownCapture, true);
+    window.removeEventListener('pointerdown', onPointerDownCapture, true);
+    window.removeEventListener('contextmenu', onContextMenuCapture, true);
     window.removeEventListener('keydown', onDown);
     window.removeEventListener('keyup', onUp);
     window.removeEventListener('blur', onBlur);

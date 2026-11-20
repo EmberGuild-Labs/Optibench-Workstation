@@ -526,6 +526,11 @@ export class OpticsViewportRuntime {
         p.onSelectionChange(sel);
       }
       this.drag = { kind: 'move', startW: w, startS: s, ids: new Set(sel), scene: p.scene, moved: false, clickId: id, wasSelected, additive, last: null };
+    } else if (e.shiftKey && !e.ctrlKey && !e.metaKey) {
+      // Shift+drag on empty bench pans the view (Ctrl+drag still adds a marquee to the selection)
+      this.zoomAnim = null;
+      this.drag = { kind: 'pan', start: s, view: { ...p.view } };
+      this.updateCursor();
     } else {
       this.drag = { kind: 'marquee', a: w, b: w, startS: s, additive, base: additive ? p.selection : [], last: '' };
       this.ui.marquee = { a: w, b: w };

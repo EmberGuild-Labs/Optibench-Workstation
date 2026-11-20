@@ -110,8 +110,8 @@ export function Toolbar(): React.JSX.Element {
         {showCircuitTools && <TB icon={<Crosshair size={16} strokeWidth={1.5} />} label="Probe (P) — circuit" active={tool === 'probe'} onClick={() => setTool('probe')} />}
         {showOpticsTools && <TB icon={<Ruler size={16} strokeWidth={1.5} />} label="Measure (M) — optics" active={tool === 'measure'} onClick={() => setTool('measure')} />}
         {tool === 'place' && placeType && (
-          <span className="tb-chip" title="Click in the viewport to place. Esc to cancel.">
-            Placing <b>{placeType}</b>
+          <span className="tb-chip" title="Click in the viewport to place. Esc, V or right-click to go back to the Select pointer.">
+            Placing <b>{placeType}</b> <span className="tb-chip-hint">(Esc / right-click: done)</span>
           </span>
         )}
       </div>

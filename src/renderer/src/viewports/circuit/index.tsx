@@ -385,6 +385,11 @@ export function CircuitViewport(props: CircuitViewportProps) {
     const m = model();
     const sel = selSet();
     const hit = hitTest(m, w, p.view.zoom, sel);
+    // Shift+drag on empty schematic pans the view (Ctrl+drag still adds a marquee to the selection)
+    if (p.tool === 'select' && hit.kind === 'none' && e.shiftKey && !e.ctrlKey && !e.metaKey) {
+      ix.current = { kind: 'pan', sx: e.clientX, sy: e.clientY, cx: p.view.cx, cy: p.view.cy };
+      return;
+    }
 
     // live interaction with switches / buttons / pots
     if (p.running) {
